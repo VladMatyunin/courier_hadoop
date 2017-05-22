@@ -16,7 +16,8 @@ public class RouteMapper extends Mapper<LongWritable, Text, Text, IntWritable>{
     protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
         String[] line = value.toString().split(",");
         String cityFrom = line[0];
-        String year = line[2].substring(0,3);
+        if (cityFrom.startsWith("from")) return;
+        String year = line[2].substring(0,4);
         context.write(new Text("< "+cityFrom+" "+year), new IntWritable(1));
         context.write(new Text("> "+cityFrom+" "+year), new IntWritable(1));
     }

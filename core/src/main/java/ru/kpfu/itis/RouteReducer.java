@@ -14,6 +14,7 @@ public class RouteReducer extends Reducer<Text,IntWritable,Text,IntWritable>{
     protected void reduce(Text key, Iterable<IntWritable> values, Context context) throws IOException, InterruptedException {
         int sum=0;
         String[] lines = key.toString().split(" ");
+        if (lines[0].equals("from")) return;
         String direction = lines[0];
         String city = lines[1];
         String year = lines[2];
