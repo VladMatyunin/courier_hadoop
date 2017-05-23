@@ -12,14 +12,16 @@ import java.util.Random;
 public class RouteGenerator {
     private RandomDateGenerator dateGenerator;
     private Random random;
+    private WeightedProbMap<City> cityGenerator;
     public RouteGenerator(){
         dateGenerator = new RandomDateGenerator();
         random = new Random();
+        cityGenerator = new WeightedProbMap<City>(CityList.getPairs());
     }
     public Route createRandomRoute(){
         return new Route(getRandomCity(),getRandomCity(),dateGenerator.getRandomDate());
     }
     private City getRandomCity(){
-        return CityList.cities[random.nextInt(2)];
+        return cityGenerator.nextElt();
     }
 }
